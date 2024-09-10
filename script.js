@@ -1,140 +1,243 @@
-let chat = document.getElementById('chat');
-let inp = document.getElementById('inp');
-let submit = document.getElementById('submit');
-let chat_user = document.getElementById('chat_user');
-let chat_robot = document.getElementById('chat_robot');
-let hello_user = JSON.parse(localStorage.getItem('user_data_alien'));
+// variabels
 
-inp.addEventListener('keydown',function(event){
-    if(event.key === 'Enter')
+let uper = document.getElementById('uper');
+let lower = document.getElementById('lower');
+let Chrachters = document.getElementById('Chrachters');
+let numbers = document.getElementById('numbers');
+let copy_pass = document.getElementById('copy');
+let Chrachters_on = '';
+let numbers_on = '';
+let lower_on = '';
+let password_resualt = document.getElementById('password_resualt');
+let password_len1 = document.getElementById('password_len');
+let length_num = document.getElementById('length_num');
+let uper_on = '';
+
+function hiden()
+{
+    if(password_resualt.innerText != '')
     {
-        send();
+        copy_pass.style.display = 'block';
+    }else{
+        copy_pass.style.display = 'none';
+    }
+}
+hiden();
+
+// reset function
+
+function reset()
+{
+    password_resualt.innerText = '';
+    password_len1.value = '4';
+    length_num.innerText = '';
+    uper.checked = false;
+    lower.checked = false;
+    numbers.checked = false;
+    Chrachters.checked = false;
+    change_style();
+    hiden();
+}
+
+// upper checked
+
+uper.addEventListener("change",function(){
+    if(this.checked)
+    {
+        uper_on = 'on';
+    }else{
+        uper_on = '';
     }
 })
 
-function send()
-{
-    
-    // English
+// Chrachters checked
 
-    if(inp.value != '' && inp.value.toLowerCase() == 'hello' || inp.value.toLowerCase() == 'hi')
+Chrachters.addEventListener("change",function(){
+    if(this.checked)
     {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>hello. can i help you?</p>`;
-        clear();
+        Chrachters_on = 'on';
+    }else{
+        Chrachters_on = '';
+    }
+})
+
+// lower checked
+
+lower.addEventListener("change",function(){
+    if(this.checked)
+    {
+        lower_on = 'on';
+    }else{
+        lower_on = '';
+    }
+})
+
+// numbers checked
+
+numbers.addEventListener("change",function(){
+    if(this.checked)
+    {
+        numbers_on = 'on';
+    }else{
+        numbers_on = '';
+    }
+})
+
+// styles length number side function
+
+function change_style(){
+    if(length_num.innerText != '')
+    {
+        length_num.style.background = 'green';
+    }else{
         
-    }else if(inp.value !='' && inp.value.toLowerCase() == 'i want knowing what resualt banging 2*2')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>sure, resualt banging 2*2 = 4</p>`;
-        clear();
-    }else if(inp.value !='' && inp.value.toLowerCase() == 'thank you' || inp.value.toLowerCase() == 'thank you very match')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>pardon if you want to helper? can you ask me.</p>`;
-        clear();
-    }else if(inp.value !='' && inp.value.toLowerCase() == 'what’s your name' || inp.value != '' && inp.value.toLowerCase() == 'what,s your name' || inp.value.toLowerCase() == 'what’s your name?' || inp.value.toLowerCase() == 'what,s your name?')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>my name is mar ai and i the ai sampel model</p>`;
-        clear();
+        length_num.innerText = '';
+        length_num.style.background = 'red';
+    }
+}
 
-    }else if( inp.value !='' && inp.value.toLowerCase() == 'i want knowing what resualt banging 2×2'){
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>sure, resualt banging 2×2 = 4</p>`;  
-        clear();
-    }else if( inp.value !='' && inp.value.toLowerCase() == 'i want alien dragon web site link'){
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-       chat_robot.innerHTML += `<p>sure, this alien dragon web site link: <a href="http://127.0.0.1:5500/data/index.html">alien dragon link</a>.</p> `;
-       clear();  
-    }else if( inp.value !='' && inp.value.toLowerCase() == 'bye'){
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-       chat_robot.innerHTML += `<p>bye, i hope good luck for you.</p> `;  
-       clear();
-    }else if( inp.value !='' && inp.value.toLowerCase() == 'ok'){
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-       chat_robot.innerHTML += `<p>ok.</p> `;  
-       clear();
-    }else if( inp.value !='' && inp.value.toLowerCase() == 'can you help me'){
-       chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-       chat_robot.innerHTML += `<p>sure, what you want?</p> `; 
-       clear();
-    }else if( inp.value !='' && inp.value.toLowerCase() == 'yes'){
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>ok, how i can help you?</p> `;
-        clear();
-        addMessage()
+// change length number side function
+
+password_len1.addEventListener("input",function(){
+    length_num.innerText = password_len1.value;
+    change_style();
+})
+
+// create password function
+
+function ok_len()
+{
+    // variabels
+
+    // password side var
+
+    let password_len2 = document.getElementById('password_len').value;
+
+    // upper case word var
+
+    let charset_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    // chract var
+
+    let chract = '!@#$%&*';
+
+    // numbers var
+
+    let numbers_pass = '0123456789';
+
+    // upper case word length var
+
+    let charset_uppercase_length = charset_upper.length;
+
+    // lower case word var
+
+    let charset_lower = 'abcdefghijklmnopqrstuvwxyz';
+
+    // lower case word length var
+
+    let charset_lower_length = charset_lower.length;
+
+    // chract case word length var
+
+    let chract_length = chract.length;
+
+    // number case word length var
+
+    let numbers_length = numbers_pass.length;
+
+    // resualt case word length var
+
+    let resualt = '';
+
+    // upper case offer
+    
+   if(uper_on == 'on')
+   {
+       for(i = 0; i < password_len2; i++)
+       {
+         resualt += charset_upper.charAt(Math.floor(Math.random() * charset_uppercase_length));
+         password_resualt.innerText = resualt;
+       }
+   }
+
+   // lower case offer
+    
+   if(lower_on == 'on') {
+        for(i = 0; i < password_len2; i++)
+        {
+            resualt += charset_lower.charAt(Math.floor(Math.random() * charset_lower_length));
+            password_resualt.innerText = resualt;
+        }
     }
 
-    //Arabic
+    // Chrachters offer
 
-    else if(inp.value != '' && inp.value == 'أهلا' || inp.value == 'مرحبا'|| inp.value == 'كيف حالك')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>أهلا, كيف يمكنني مساعدتك؟</p> `; 
-        clear(); 
-    }else if(inp.value != '' && inp.value == 'ما هو حاصل ضرب 2*2' || inp.value == 'أريد معرفة حاصل ضرب 2*2' || inp.value == 'ما هو حاصل ضرب 2×2' || inp.value == 'أريد معرفة حاصل ضرب 2×2')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>بالطبع, حاصل ضرب 2*2 هو 4</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'شكرا' || inp.value == 'شكرا لك' || inp.value == 'شكرا جزيلا' || inp.value == 'شكرا جزيلا لك' || inp.value == 'أشكرك')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>.العفو, إذا أردت أي مساعدة لا تتردد في الطلب مني</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'ما هو إسمك' || inp.value == 'من أنت')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>.إسمي هو مار أه أي و أنا نموذج ذكاء إصطناعي بسيط و المشمهندس مروان هو من قام ببرمجتي و صنعي</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'هل يمكنك مساعدتي')
-    {
-        chat_user.innerHTML  += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>بالطبع, ما هو سؤالك؟</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'بالطبع' || inp.value == 'أكيد' || inp.value == 'بالتأكيد' || inp.value == 'نعم' || inp.value == 'أجل')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>حسنا, ما هو سؤالك؟</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'حسنا')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>.حسنا</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'إلى اللقاء' || inp.value == 'مع السلامة' || inp.value == 'باي')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>.إلى اللقاء , أتمنى لك حظ جيد</p> `; 
-        clear();
-    }else if(inp.value != '' && inp.value == 'أريد رابط موقع شركة ألين دراجون')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p><a href="#">alien dragon web site</a> :بالطبع هذا هو الرابط</a></p> `;
-        clear();  
-    }else if(inp.value !='' && inp.value == 'ما إسمك ' || inp.value == 'ما هو إسمك')
-    {
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>إسمي هو مار أه أي</p>`;
-        clear();
-    }
-    else{
-        chat_user.innerHTML += `<p class="user">${inp.value}</p>`;
-        chat_robot.innerHTML += `<p>.أسف أنا مزلت تحت التطوير و التدريب لذا لا أستطيع فهم ما تقصده</p> `;  
-        clear();
+    if(Chrachters_on == 'on') {
+        for(i = 0; i < password_len2; i++)
+        {
+            resualt += chract.charAt(Math.floor(Math.random() * chract_length));
+            password_resualt.innerText = resualt;
+        }
     }
 
-    chat.scroll({
-        top: 90000000000000000000000000,
-        behavior:'smooth',
-    })
+    // numbers offer
 
-    inp.focus();
+    if(numbers_on == 'on') {
+        for(i = 0; i < password_len2; i++)
+        {
+            resualt += numbers_pass.charAt(Math.floor(Math.random() * numbers_length));
+            password_resualt.innerText = resualt;
+        }
+    }
+
+    // defualt offer
+
+    if(lower_on == '' && numbers_on == '' && Chrachters_on == '' && uper_on == '')
+    {
+        for(i = 0; i < password_len2; i++)
+        {
+            resualt += charset_lower.charAt(Math.floor(Math.random() * charset_lower_length));
+            password_resualt.innerText = resualt;
+        }
+    }
+
+    hiden();
 
 }
 
-function clear()
-{
-    inp.value = '';
+// copy function
+
+function copy(){
+
+    // الحصول على مكان النسخ
+
+    let password_copy = document.getElementById("password_resualt");
+
+    // create element
+
+    let tempinput = document.createElement("input");
+
+    // select element value(text copy)
+
+    tempinput.value = password_copy.innerText;
+
+    // add element in body
+
+    document.body.appendChild(tempinput);
+
+    // select
+
+    tempinput.select();
+
+    // copy
+
+    document.execCommand("copy");
+
+    // delete element from body
+
+    document.body.removeChild(tempinput);
+
+    // done message
+
+    alert('تم النسخ بنجاح')
 }

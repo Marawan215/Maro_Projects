@@ -5,36 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/icon.png">
-    <title>Mar Ai</title>
+    <title>Password Generator</title>
 </head>
 <body>
     <div class="con">
-
-        <div class="header">
-            <h1>mar ai</h1>
-        </div>
-
-        <div class="chat_bot" id="chat">
-
-            <div class="chat_robot" id="chat_robot">
+        <div class="password_resualt">
+                
+            <div id="password_resualt" class="pass">
 
             </div>
 
-            <div class="chat_user" id="chat_user">
+            <img src="Images/copy.png" title="copy" id="copy" alt="copy" onclick="copy()">
 
-            </div>
         </div>
-
-        <div class="input">
-
-            <input type="text" placeholder="what do you ask me" id="inp" autofocus>
-            <img src="images/send.png" alt="send" id="submit" title="send" onclick="send()">
+        <div class="controls">
+            <div class="range">
+            <label for="password_len">your password length</label>
+            <input type="range" min="13" step="1" max="16" value="4" id="password_len" class="password_len">
+            <span id="length_num" class="length-num"></span>
         </div>
-
+        <div class="checkboxs">
+            <label for="uper">upper case text</label>
+            <input type="checkbox" id="uper">
+            <label for="lower">lower case text</label>
+            <input type="checkbox" id="lower">
+            <label for="Chrachters">Chrachters</label>
+            <input type="checkbox" id="Chrachters">
+            <label for="numbers">numbers</label>
+            <input type="checkbox" id="numbers">
+        </div>
+        <div class="btn">
+        <button onclick="ok_len()">create</button>
+        <button class="delete" onclick="reset()">reset</button>
     </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
-
-<script src="script.js"></script>
-
 </html>
